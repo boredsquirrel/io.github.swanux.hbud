@@ -3,8 +3,6 @@ runtime: org.gnome.Platform
 runtime-version: '42'
 sdk: org.gnome.Sdk
 command: io.github.swanux.hbud
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.rust-stable
 
 finish-args:
   - --share=network
@@ -47,30 +45,12 @@ modules:
   - "codecs/ffmpeg.json"
   - "codecs/gstreamer.json"
 
-  - name: gst-gtk4sink
-    sources:
-    - type: git
-      commit: 18c9bd0355e0fc1ab20072d805807112945ad5bb
-      url: https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs.git
-      tag: 0.8.4
-    buildsystem: simple
-    build-options:
-      append-path: /usr/lib/sdk/rust-stable/bin
-      env:
-        CARGO_HOME: /run/build/gst-gtk4sink/cargo
-      build-args:
-        - --share=network
-    build-commands:
-      - cargo install cargo-c
-      - cargo cbuild -p gst-plugin-gtk4 --libdir=/app/lib/
-      - cargo cinstall -p gst-plugin-gtk4 --libdir=/app/lib/
-
   - name: io.github.swanux.hbud
     buildsystem: simple
     sources:
       - type: archive
         url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.0.tar.gz
-        sha256: 6151f566152933a7327bfddf6a0cc9005a680b5dd9ef2066e4adcb90cad15b9d
+        sha256: 2a25d5f1c1c6900242b0c4c528b836323150a5e624b5b30133f5ab692facac80
     build-commands:
       - mkdir -p /app/share/applications
       - mkdir -p /app/share/hbud
@@ -78,7 +58,7 @@ modules:
       - mkdir -p /app/share/appdata
       - mkdir -p /app/share/icons/hicolor/128x128/apps
       - cp -r DEV_FILES/hbud /app/share/hbud/.
-      - cp -r DEV_FILES/modules /app/share/hbud/. 
+      - cp -r DEV_FILES/modules /app/share/hbud/.
       - cp DEV_FILES/io.github.swanux.hbud.desktop /app/share/applications/.
       - cp DEV_FILES/io.github.swanux.hbud /app/share/hbud/.
       - ln -s /app/share/hbud/io.github.swanux.hbud /app/bin/.
