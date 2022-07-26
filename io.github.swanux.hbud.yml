@@ -50,7 +50,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.0.tar.gz
-        sha256: 2a25d5f1c1c6900242b0c4c528b836323150a5e624b5b30133f5ab692facac80
+        sha256: 4846a22e75b4979c3ce2dcbb8ed4fcfd60f4836ca0a965b529082656ef0b0353
     build-commands:
       - mkdir -p /app/share/applications
       - mkdir -p /app/share/hbud
