@@ -10,7 +10,7 @@
         "-Dbad=enabled",
         "-Dugly=enabled",
         "-Dlibav=enabled",
-        "-Dvaapi=enabled",
+        "-Dvaapi=disabled",
         "-Dsharp=disabled",
         "-Drs=disabled",
         "-Dpython=disabled",
@@ -36,7 +36,7 @@
         "-Dgst-plugins-base:glib-asserts=disabled",
         "-Dgst-plugins-base:glib-checks=disabled",
         "-Dgst-plugins-base:gl_api=opengl,gles2",
-        "-Dgst-plugins-base:gl_platform=egl,glx",
+        "-Dgst-plugins-base:gl_platform=wgl,egl,glx",
 
         "-Dgst-plugins-good:gobject-cast-checks=disabled",
         "-Dgst-plugins-good:glib-asserts=disabled",
@@ -67,9 +67,53 @@
         {
             "type": "git",
             "url": "https://gitlab.freedesktop.org/gstreamer/gstreamer.git",
-            "tag": "1.20.3",
-            "commit": "ccf22e315cedf81e0075ab179ffb1b733da5206e",
+            "tag": "1.20.5",
+            "commit": "f7806a854aad960eae3288db4a67a574f92428fe",
             "disable-submodules": true
+        },
+        {
+            "type": "patch",
+            "path": "gst-libav-stop-caching-codecs.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-base-autodetect-subtitle-text-encoding.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-base-do-not-set-backbuffer.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-base-glupload-filter-formats.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-base-do-not-use-drm-modifiers-on-desktop.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-good-matroska-fix-attachments-detection.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-good-matroska-support-seek-nearest-keyframe.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-bad-dashdemux-sidx-range-download.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-bad-dashdemux-improve-initial-representation-selection.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-bad-mpdparser-fix-missing-uri-query.patch"
+        },
+        {
+            "type": "patch",
+            "path": "gst-plugins-bad-workaround-playbin2-missing-videometa.patch"
         }
     ]
 }
