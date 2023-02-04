@@ -33,10 +33,12 @@ finish-args:
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0
 
 modules:
+  - "lib/libass.json"
+  - "lib/srt.json"
   - "lib/ffmpeg.json"
   - "lib/libmpeg2.json"
-  - "lib/libass.json"
   - "gstreamer-1.0/gstreamer.json"
+  - "pypi-dependencies.json"
 
   - name: gtk4paintablesink
     buildsystem: simple
@@ -49,15 +51,15 @@ modules:
     - install -Dm755 target/release/libgstgtk4.so -t /app/lib/gstreamer-1.0
     sources:
     - type: archive
-      url: https://github.com/swanux/hbud/releases/download/v0.4.1/gtk4paintablesink_230129.tar.xz
+      url: https://github.com/swanux/hbud/releases/download/v0.4.1.1/gtk4paintablesink_230129.tar.xz
       sha256: 4e53d8c9e03d0a653b7defdb1ddf38b27ad61c5882600742f7c2b120a8e1fb5b
 
   - name: io.github.swanux.hbud
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.1.tar.gz
-        sha256: 27c5c494d847acd4a2311b568719f7817a67eca200f32a63ffce92e035e8946a
+        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.1.1.tar.gz
+        sha256: 3c89c55b98bfc6f57e06b9fa5bd04525c0d871ff3c6b5d9c9116e5b2e77d34d4
     build-commands:
       - mkdir -p /app/share/applications
       - mkdir -p /app/share/hbud
@@ -65,14 +67,13 @@ modules:
       - mkdir -p /app/share/appdata
       - mkdir -p /app/share/icons/hicolor/128x128/apps
       - cp -r DEV_FILES/hbud /app/share/hbud/.
-      - cp -r DEV_FILES/modules /app/share/hbud/.
       - cp DEV_FILES/io.github.swanux.hbud.desktop /app/share/applications/.
       - cp DEV_FILES/io.github.swanux.hbud /app/share/hbud/.
       - cp DEV_FILES/fpcalc /app/share/hbud/.
       - install -Dm755 /app/share/hbud/fpcalc -t /app/bin/.
       - ln -s /app/share/hbud/io.github.swanux.hbud /app/bin/.
       - cp DEV_FILES/io.github.swanux.hbud.appdata.xml /app/share/appdata/.
-      - install -Dm644 -t /app/share/icons/hicolor/scalable/apps/ DEV_FILES/hbud/icons/io.github.swanux.hbud.svg 
+      - install -Dm644 -t /app/share/icons/hicolor/scalable/apps/ DEV_FILES/hbud/icons/io.github.swanux.hbud.svg
 
 cleanup-commands:
   - ln -s /lib/$FLATPAK_ARCH-linux-*/gstreamer-1.0/libgstpipewire.so /app/lib/gstreamer-1.0/
