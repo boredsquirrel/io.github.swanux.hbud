@@ -51,15 +51,15 @@ modules:
     - install -Dm755 target/release/libgstgtk4.so -t /app/lib/gstreamer-1.0
     sources:
     - type: archive
-      url: https://github.com/swanux/hbud/releases/download/v0.4.1.1/gtk4paintablesink_230129.tar.xz
+      url: https://github.com/swanux/hbud/releases/download/v0.4.1.2/gtk4paintablesink_230129.tar.xz
       sha256: 4e53d8c9e03d0a653b7defdb1ddf38b27ad61c5882600742f7c2b120a8e1fb5b
 
   - name: io.github.swanux.hbud
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.1.1.tar.gz
-        sha256: 3c89c55b98bfc6f57e06b9fa5bd04525c0d871ff3c6b5d9c9116e5b2e77d34d4
+        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.1.2.tar.gz
+        sha256: 7192c1547fd194cd7cdc1996cd01d8c4635ab56b8f4cd612accbb33fcc27a84c
     build-commands:
       - mkdir -p /app/share/applications
       - mkdir -p /app/share/hbud
