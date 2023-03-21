@@ -2,7 +2,7 @@ app-id: io.github.swanux.hbud
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk
-command: io.github.swanux.hbud
+command: hbud
 sdk-extensions:
   - org.freedesktop.Sdk.Extension.rust-stable
 
@@ -23,18 +23,12 @@ finish-args:
   - --socket=fallback-x11
   - --device=dri
   - --socket=pulseaudio
-  - --filesystem=xdg-music
-  - --filesystem=xdg-videos
   - --share=ipc
-  - --filesystem=xdg-run/gvfs
-  - --filesystem=xdg-run/gvfsd
-  - --filesystem=/run/media
-  - --talk-name=org.gtk.vfs.*
+  - --own-name=org.mpris.MediaPlayer2.hbud
   - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0
 
 modules:
   - "lib/libass.json"
-  - "lib/srt.json"
   - "lib/ffmpeg.json"
   - "lib/libmpeg2.json"
   - "gstreamer-1.0/gstreamer.json"
@@ -46,34 +40,23 @@ modules:
       env:
         CARGO_HOME: "/run/build/gtk4paintablesink/cargo"
     build-commands:
-    - cargo --offline fetch --manifest-path Cargo.toml --verbose
-    - cargo build --offline --release --verbose --features wayland,x11egl,x11glx
-    - install -Dm755 target/release/libgstgtk4.so -t /app/lib/gstreamer-1.0
+      - cargo --offline fetch --manifest-path Cargo.toml --verbose
+      - cargo build --offline --release --verbose --features wayland,x11egl,x11glx
+      - install -Dm755 target/release/libgstgtk4.so -t /app/lib/gstreamer-1.0
     sources:
     - type: archive
-      url: https://github.com/swanux/hbud/releases/download/v0.4.1.2/gtk4paintablesink_230129.tar.xz
-      sha256: 4e53d8c9e03d0a653b7defdb1ddf38b27ad61c5882600742f7c2b120a8e1fb5b
-
+      url: https://github.com/swanux/hbud/releases/download/v0.4.2/gtk4paintablesink_230309.tar.xz
+      sha256: a9e23356b6df9d2b25046fee782a70318f749fc0ac6a0b8daa81257b208ed11f
+  
   - name: io.github.swanux.hbud
     buildsystem: simple
     sources:
       - type: archive
-        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.1.2.tar.gz
-        sha256: 7192c1547fd194cd7cdc1996cd01d8c4635ab56b8f4cd612accbb33fcc27a84c
+        url: https://github.com/swanux/hbud/archive/refs/tags/v0.4.2.tar.gz
+        sha256: a177e7901b6e2a2e8f1838c3b18e3128b8639a46802417deca939e8301d80efd
     build-commands:
-      - mkdir -p /app/share/applications
-      - mkdir -p /app/share/hbud
-      - mkdir -p /app/bin
-      - mkdir -p /app/share/appdata
-      - mkdir -p /app/share/icons/hicolor/128x128/apps
-      - cp -r DEV_FILES/hbud /app/share/hbud/.
-      - cp DEV_FILES/io.github.swanux.hbud.desktop /app/share/applications/.
-      - cp DEV_FILES/io.github.swanux.hbud /app/share/hbud/.
-      - cp DEV_FILES/fpcalc /app/share/hbud/.
-      - install -Dm755 /app/share/hbud/fpcalc -t /app/bin/.
-      - ln -s /app/share/hbud/io.github.swanux.hbud /app/bin/.
-      - cp DEV_FILES/io.github.swanux.hbud.appdata.xml /app/share/appdata/.
-      - install -Dm644 -t /app/share/icons/hicolor/scalable/apps/ DEV_FILES/hbud/icons/io.github.swanux.hbud.svg
+      - make prefix=${FLATPAK_DEST} install
 
 cleanup-commands:
   - ln -s /lib/$FLATPAK_ARCH-linux-*/gstreamer-1.0/libgstpipewire.so /app/lib/gstreamer-1.0/
+  - pip3 uninstall -y nuitka ordered-set
